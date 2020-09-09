@@ -9,7 +9,7 @@ const formSchema = yup.object().shape({
     terms: yup.boolean().oneOf([true], 'Please agree to terms of use')
 });
 
-const Form = () => {
+export default function Form() {
 
     const [formState, setFormState] = useState({
         name: '',
@@ -49,8 +49,7 @@ const Form = () => {
     const inputChange = (e) => {
         e.persist();
         validate(e);
-        let value = 
-            e.target.type === 'checked' ? e.target.checked : e.target.value;
+        let value = e.target.type === 'checked' ? e.target.checked : e.target.value;
         setFormState({...formState, [e.target.name]: value});
     };
 
@@ -62,7 +61,6 @@ const Form = () => {
             .then( res => {
                 console.log(res);
                 setUsers([...users, res.data]);
-                console.log('Users: ', users);
             })
             .catch( err => console.log(err));
     };
@@ -84,13 +82,13 @@ const Form = () => {
                 {errorState.password.length > 0 ? (<p>{errorState.password}</p>) : null}
             </label>
             <label htmlFor='terms'>
-                I have read and agree to Terms & Conditions
-                <input type='checkbox' name='terms' checked={formState.terms} onChange={inputChange} />
+                <input type='checkbox' id='terms' name='terms' checked={formState.terms} onChange={inputChange} />
+                I have read and agree to Terms and Conditions
                 {errorState.terms.length > 0 ? (<p>{errorState.terms}</p>) : null}
             </label>
-            <button>Submit</button>
+            <button type='submit'>Submit</button>
+            <pre>{JSON.stringify(users, null, 5)}</pre>
         </form>
+       
     )
-};
-
-export default Form
+}
