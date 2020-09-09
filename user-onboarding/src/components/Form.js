@@ -3,11 +3,11 @@ import * as yup from 'yup';
 import axios from 'axios';
 
 const formSchema = yup.object().shape({
-    name: '',
-    email: '',
-    password: '',
-    terms: false
-})
+    name: yup.string().required('Name is a required field'),
+    email: yup.string('Must be a valid email address').required('Email is a required field'),
+    password: yup.string().required('Must enter a Password'),
+    terms: yup.boolean().oneOf([true], 'Please agree to terms of use')
+});
 
 const Form = () => {
 
@@ -17,6 +17,32 @@ const Form = () => {
         password: '',
         terms: false
     });
+
+    const [errorState, setErrorState] = useState({
+        name: '',
+        email: '',
+        password: '',
+        terms: false
+    });
+
+    const validate = (e) => {
+        let value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
+        yup
+            .reach(formSchema, e.target.name)
+            .validate(value)
+            .then( valid => {
+                setErrorState({
+                    ...errorState,
+                    [e.target.name]: ''
+                });
+            })
+            .catch( err => {
+                setErrorState({
+                    ...errorState,
+                    [e.target.name]: err.errors[0]
+                });
+            })
+    }
 
     return (
         <form>
