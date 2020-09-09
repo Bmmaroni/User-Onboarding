@@ -42,8 +42,24 @@ const Form = () => {
                     [e.target.name]: err.errors[0]
                 });
             })
-    }
+    };
 
+    const inputChange = (e) => {
+        e.persist();
+        validate(e);
+        let value = 
+            e.target.type === 'checked' ? e.target.checked : e.target.value;
+        setFormState({...formState, [e.target.name]: e.target.value});
+    };
+
+    const formSubmit = (e) => {
+        e.preventDefault();
+        console.log('form submitted');
+        axios
+            .post("https://reqres.in/api/users", formState)
+            .then( res => console.log(res))
+            .catch( err => console.log(err));
+    };
     return (
         <form>
             <label>
@@ -52,11 +68,11 @@ const Form = () => {
             </label>
             <label>
                 Email
-                <input type="text" name="email" id="email" ></input>
+                <input type="email" name="email" id="email" ></input>
             </label>
             <label>
                 Password
-                <input type="text" name="password" id="password" ></input>
+                <input type="password" name="password" id="password" ></input>
             </label>
             <label>
                 I have read and agree to Terms & Conditions
