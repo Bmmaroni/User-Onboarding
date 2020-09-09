@@ -61,22 +61,22 @@ const Form = () => {
             .catch( err => console.log(err));
     };
     return (
-        <form>
-            <label>
+        <form onSubmit={formSubmit}>
+            <label htmlFor='name'>
                 Name
-                <input type="text" name="name" id="name" ></input>
+                <input type="text" name="name" id="name" value={formState.name} onChange={inputChange} />
             </label>
-            <label>
+            <label htmlFor='email'>
                 Email
-                <input type="email" name="email" id="email" ></input>
+                <input type="email" name="email" id="email" value={formState.email} onChange={inputChange} />
             </label>
-            <label>
+            <label htmlFor='password'>
                 Password
-                <input type="password" name="password" id="password" ></input>
+                <input type="password" name="password" id="password" value={formState.password} onChange={inputChange} />
             </label>
-            <label>
+            <label htmlFor='terms'>
                 I have read and agree to Terms & Conditions
-                <input type='checkbox' name='terms'></input>
+                <input type='checkbox' name='terms' checked={formState.terms} onChange={inputChange} />
             </label>
             <button>Submit</button>
         </form>
