@@ -17,7 +17,7 @@ export default function Form() {
         name: '',
         email: '',
         password: '',
-        terms: false
+        terms: ''
     });
 
     const [errorState, setErrorState] = useState({
@@ -57,7 +57,7 @@ export default function Form() {
     const inputChange = (e) => {
         e.persist();
         validate(e);
-        let value = e.target.type === 'checked' ? e.target.checked : e.target.value;
+        const value = e.target.type === 'checked' ? e.target.checked : e.target.value;
         setFormState({...formState, [e.target.name]: value});
     };
 
@@ -69,6 +69,12 @@ export default function Form() {
             .then( res => {
                 console.log(res);
                 setUsers([...users, res.data]);
+                setFormState({
+                    name: '',
+                    email: '',
+                    password: '',
+                    terms: ''
+                })
             })
             .catch( err => console.log(err));
     };
@@ -90,7 +96,7 @@ export default function Form() {
                 {errorState.password.length > 0 ? (<p>{errorState.password}</p>) : null}
             </label>
             <label htmlFor='terms'>
-                <input type='checkbox' id='terms' name='terms' checked={formState.terms} onChange={inputChange} />
+                <input type='checkbox' name='terms' checked={formState.terms} onChange={inputChange} />
                 I have read and agree to Terms and Conditions
                 {errorState.terms.length > 0 ? (<p>{errorState.terms}</p>) : null}
             </label>
