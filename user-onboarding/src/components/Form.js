@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import * as yup from 'yup';
 import axios from 'axios';
 
@@ -10,6 +10,8 @@ const formSchema = yup.object().shape({
 });
 
 export default function Form() {
+
+    const [buttonDisabled, setButtonDisabled] = useState(true);
 
     const [formState, setFormState] = useState({
         name: '',
@@ -26,6 +28,12 @@ export default function Form() {
     });
 
     const [users, setUsers] = useState([]);
+
+    useEffect(() => {
+        formSchema.isValid(formState).then(valid => {
+            setButtonDisabled(!valid);
+        });
+    }, [formState])
 
     const validate = (e) => {
         let value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
@@ -86,8 +94,8 @@ export default function Form() {
                 I have read and agree to Terms and Conditions
                 {errorState.terms.length > 0 ? (<p>{errorState.terms}</p>) : null}
             </label>
-            <button type='submit'>Submit</button>
-            <pre>{JSON.stringify(users, null, 5)}</pre>
+            <button disabled={buttonDisabled}>Submit</button>
+            <pre>{JSON.stringify(users, null, 2)}</pre>
         </form>
        
     )
