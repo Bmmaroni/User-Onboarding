@@ -100,7 +100,7 @@ export default function Form() {
                 I have read and agree to Terms and Conditions
                 {errorState.terms.length > 0 ? (<p>{errorState.terms}</p>) : null}
             </label>
-            <button disabled={buttonDisabled}>Submit</button>
+            <button data-cy='submit_button' disabled={buttonDisabled}>Submit</button>
             <pre>{JSON.stringify(users, null, 2)}</pre>
         </form>
        
