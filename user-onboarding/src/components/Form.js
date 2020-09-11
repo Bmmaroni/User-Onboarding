@@ -57,7 +57,7 @@ export default function Form() {
     const inputChange = (e) => {
         e.persist();
         validate(e);
-        const value = e.target.type === 'checked' ? e.target.checked : e.target.value;
+        const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
         setFormState({...formState, [e.target.name]: value});
     };
 

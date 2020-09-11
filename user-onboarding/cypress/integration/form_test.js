@@ -1,6 +1,6 @@
 describe("Form testing", () => {
     beforeEach(() => {
-        cy.visit("http://localhost:3000/")
+        cy.visit("/")
     })
     it("fills out form", () => {
         const name = 'Brandon'
