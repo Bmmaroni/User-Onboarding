@@ -96,7 +96,7 @@ export default function Form() {
                 {errorState.password.length > 0 ? (<p>{errorState.password}</p>) : null}
             </label>
             <label htmlFor='terms'>
-                <input type='checkbox' name='terms' checked={formState.terms} onChange={inputChange} />
+                <input type='checkbox' name='terms' id='terms' checked={formState.terms} onChange={inputChange} />
                 I have read and agree to Terms and Conditions
                 {errorState.terms.length > 0 ? (<p>{errorState.terms}</p>) : null}
             </label>
